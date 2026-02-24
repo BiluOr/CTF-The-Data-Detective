@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Sentinel - Analyst CTF</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --bg-main: #f1f5f9; 
+            --sidebar: #ffffff; 
+            --card-bg: #ffffff; 
+            --primary: #0284c7; 
+            --primary-hover: #0369a1;
+            --text-dark: #0f172a; 
+            --text-light: #64748b; 
+            --border: #e2e8f0; 
+            --danger: #ef4444; 
+            --success: #10b981; 
+            --warning: #f59e0b;
+        }
+        body { background: var(--bg-main); color: var(--text-dark); font-family: 'Heebo', sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Sidebar */
+        .sidebar { width: 340px; background: var(--sidebar); padding: 24px; display: flex; flex-direction: column; gap: 20px; border-left: 1px solid var(--border); box-shadow: -2px 0 10px rgba(0,0,0,0.05); z-index: 10; overflow-y: auto; }
+        .sidebar h2 { font-size: 1.2rem; color: var(--text-dark); font-weight: 800; margin: 0 0 10px 0; display: flex; align-items: center; justify-content: space-between; }
+        .level-badge { background: var(--primary); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        
+        /* Filters */
+        .filter-section { background: var(--bg-main); padding: 15px; border-radius: 8px; display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--border); }
+        .filter-group { display: flex; flex-direction: column; gap: 4px; }
+        label { font-size: 0.75rem; font-weight: 600; color: var(--text-light); }
+        select, input { background: #ffffff; border: 1px solid var(--border); color: var(--text-dark); padding: 8px 12px; border-radius: 6px; font-size: 0.9rem; outline: none; transition: border 0.2s; font-family: inherit; }
+        select:focus, input:focus { border-color: var(--primary); }
+        
+        /* Mission Box */
+        .mission-box { background: #f0f9ff; border: 1px solid #bae6fd; padding: 15px; border-radius: 8px; margin-top: auto; }
+        .mission-box h3 { margin: 0 0 10px 0; font-size: 0.9rem; color: #0369a1; }
+        .mission-text { font-size: 0.85rem; color: #0f172a; margin-bottom: 15px; line-height: 1.5; font-weight: 600; }
+        .btn-verify { background: var(--primary); color: white; border: none; padding: 10px; width: 100%; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-verify:hover { background: var(--primary-hover); }
+        
+        /* Main Content */
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        header { background: #ffffff; padding: 15px 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .search-bar { width: 300px; }
+        
+        .dashboard-body { padding: 25px; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: auto auto 1fr; gap: 20px; overflow-y: auto; height: 100%; }
+        
+        /* Cards */
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .kpi-card { display: flex; flex-direction: column; justify-content: center; border-bottom: 4px solid var(--primary); }
+        .kpi-label { font-size: 0.8rem; color: var(--text-light); font-weight: 600; text-transform: uppercase; }
+        .kpi-value { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); margin-top: 5px; font-family: 'JetBrains Mono', monospace; }
+        
+        /* Chart & Table */
+        .chart-container { grid-column: span 4; height: 260px; }
+        .table-container { grid-column: span 4; overflow-y: auto; max-height: 400px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; direction: ltr; }
+        th { position: sticky; top: 0; background: #f8fafc; padding: 12px; border-bottom: 2px solid var(--border); color: var(--text-light); font-size: 0.75rem; text-transform: uppercase; font-weight: 800; }
+        td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; color: var(--text-dark); }
+        tr:hover { background: #f1f5f9; }
+        
+        /* Utilities */
+        .pos-val { color: var(--success); font-weight: bold; }
+        .neg-val { color: var(--danger); font-weight: bold; }
+        
+        #successOverlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.9); z-index: 2000; justify-content: center; align-items: center; text-align: center; flex-direction: column; }
+    </style>
+</head>
+<body>
+
+<div id="successOverlay">
+    <div class="card" style="padding: 60px; max-width: 500px; border-bottom: 4px solid var(--success);">
+        <h1 style="color: var(--success); font-family: 'JetBrains Mono'; margin-top:0;">DATA MASTER CLASSIFIED</h1>
+        <p style="font-size: 1.1rem; color: var(--text-dark);">כל הכבוד! פיצחת את כל 5 השלבים והוכחת יכולות אנליזה גבוהות במיוחד. חריגות הנתונים אותרו ונוטרלו.</p>
+        <button class="btn-verify" style="margin-top: 20px;" onclick="location.reload()">התחל מחדש</button>
+    </div>
+</div>
+
+<div class="sidebar">
+    <div>
+        <h2>מסוף אנליסט <span class="level-badge" id="levelIndicator">שלב 1 / 5</span></h2>
+        <p style="font-size: 0.85rem; color: var(--text-light); margin-top:0;">סנן את הנתונים כדי למצוא את התשובות לשאלות החקר.</p>
+    </div>
+    
+    <div class="filter-section">
+        <div class="filter-group">
+            <label>שנת כספים (Year)</label>
+            <select id="fYear" onchange="updateDashboard()"><option value="All" selected>הכל</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select>
+        </div>
+        <div class="filter-group">
+            <label>אזור פעילות (Region)</label>
+            <select id="fReg" onchange="updateDashboard()"><option value="All" selected>הכל</option><option>APAC</option><option>EMEA</option><option>LATAM</option><option>North America</option></select>
+        </div>
+        <div class="filter-group">
+            <label>סוג נכס (Asset Class)</label>
+            <select id="fAsset" onchange="updateDashboard()"><option value="All" selected>הכל</option><option>Equities</option><option>FX</option><option>Fixed Income</option><option>Commodities</option></select>
+        </div>
+        <div class="filter-group">
+            <label>סשן מסחר (Session)</label>
+            <select id="fSession" onchange="updateDashboard()"><option value="All" selected>הכל</option><option>London Open</option><option>NY Close</option><option>Asian Session</option></select>
+        </div>
+    </div>
+
+    <div class="mission-box">
+        <h3>משימה נוכחית:</h3>
+        <div class="mission-text" id="missionText">טוען משימה...</div>
+        <input type="text" id="ansInput" placeholder="הזן תשובה כאן..." style="width: 100%; box-sizing: border-box; margin-bottom: 10px;">
+        <button class="btn-verify" onclick="checkAnswer()">בדוק תשובה</button>
+    </div>
+</div>
+
+<div class="main-content">
+    <header>
+        <h1 style="font-size: 1.2rem; font-weight: 600; margin: 0; color: var(--primary);">Data Analytics Dashboard</h1>
+        <div class="search-bar">
+            <input type="text" id="fSearch" placeholder="חיפוש חופשי (UUID / סוחר)..." style="width: 100%;" onkeyup="updateDashboard()">
+        </div>
+    </header>
+
+    <div class="dashboard-body">
+        <div class="card kpi-card"><span class="kpi-label">סה"כ עסקאות</span><span class="kpi-value" id="k-count">0</span></div>
+        <div class="card kpi-card"><span class="kpi-label">סה"כ נפח (Volume)</span><span class="kpi-value" id="k-vol">0</span></div>
+        <div class="card kpi-card"><span class="kpi-label">ממוצע רווח (%)</span><span class="kpi-value" id="k-pct">0%</span></div>
+        <div class="card kpi-card"><span class="kpi-label">סה"כ רווח ($)</span><span class="kpi-value" id="k-profit">0</span></div>
+
+        <div class="card chart-container"><canvas id="mainChart"></canvas></div>
+        
+        <div class="card table-container">
+            <table>
+                <thead><tr><th>UUID</th><th>Trader</th><th>Year</th><th>Region</th><th>Asset Class</th><th>Session</th><th>Volume</th><th>Profit %</th><th>Profit ($)</th></tr></thead>
+                <tbody id="tableRows"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    let chartInstance;
+    const db = [];
+    const years = ['2022', '2023', '2024', '2025'];
+    const regions = ['EMEA', 'APAC', 'LATAM', 'North America'];
+    const assets = ['Equities', 'FX', 'Fixed Income', 'Commodities'];
+    const sessions = ['London Open', 'NY Close', 'Asian Session'];
+
+    let currentLevel = 1;
+    
+    const missions = [
+        { q: 'שלב 1: מצא את ה-UUID של העסקה שבוצעה בסשן "NY Close" על ידי הסוחר שהרוויח את סך הסכום הכולל ($) הגבוה ביותר בשנת 2024 (מבין כל הסוחרים באותה שנה).', ans: 'TXN_Q1_WINNER' },
+        { q: 'שלב 2: סנן את הנתונים לשנת 2022 ובדוק איזה אזור (Region) הציג את ממוצע הרווח (Profit %) הגרוע ביותר. באותו אזור שיימצא, חפש את עסקת ה-Equities בעלת הנפח (Volume) הגדול ביותר. מה ה-UUID שלה?', ans: 'TXN_Q2_VOLMAX' },
+        { q: 'שלב 3: חפש עסקת מט"ח (FX) בודדת שגרמה להפסד כבד של מעל 700,000$. העסקה התרחשה מחוץ לשעות הפעילות של בורסות לונדון וניו יורק. מה ה-UUID שלה?', ans: 'TXN_Q3_CRASH' },
+        { q: 'שלב 4: הסוחר "TRD_ALPHA" פעל ב-2024 וב-2025. מהו שיעור הצמיחה ברווח שלו (YoY Profit % Growth) מ-2024 ל-2025? (הזן מספר בלבד, למשל 15)', ans: '25' },
+        { q: 'שלב 5 (חריגה): מצא את עסקת הרפאים! ישנה עסקה אחת בכל המערכת שבה ה-Volume גדול מ-1,000,000 אך אחוז הרווח (Profit %) הוא בדיוק 0%. מה ה-UUID שלה?', ans: 'TXN_GHOST_ANOMALY' }
+    ];
+
+    // Generate Base Data
+    years.forEach(y => {
+        regions.forEach(r => {
+            assets.forEach(a => {
+                sessions.forEach(s => {
+                    let count = Math.floor(Math.random() * 3) + 3;
+                    for(let i=0; i<count; i++) {
+                        let volume = Math.floor(Math.random() * 90000) + 10000;
+                        let profitPct = (Math.random() * 20 - 10) / 100; // -10% to +10%
+                        if(profitPct === 0) profitPct = 0.01; 
+                        let profit = volume * profitPct;
+                        db.push({
+                            uuid: 'TXN_' + Math.random().toString(36).substr(2,6).toUpperCase(),
+                            trader: 'TRD_' + Math.random().toString(36).substr(2,4).toUpperCase(),
+                            y, reg: r, asset: a, session: s,
+                            volume, profitPct, profit
+                        });
+                    }
+                });
+            });
+        });
+    });
+
+    // Inject Target Answers guarantees
+    // Q1 Target: Make TRD_PRO the top earner in 2024, and inject the specific NY Close trade.
+    db.push({ uuid: 'TXN_DUMMY_PRO1', trader: 'TRD_PRO', y: '2024', reg: 'APAC', asset: 'Equities', session: 'London Open', volume: 5000000, profitPct: 0.20, profit: 1000000 });
+    db.push({ uuid: 'TXN_Q1_WINNER', trader: 'TRD_PRO', y: '2024', reg: 'North America', asset: 'FX', session: 'NY Close', volume: 2000000, profitPct: 0.15, profit: 300000 });
+    
+    // Q2 Target: Make LATAM the worst region in 2022, and inject the high volume Equities trade.
+    db.push({ uuid: 'TXN_DUMMY_LOSS', trader: 'TRD_LOSER', y: '2022', reg: 'LATAM', asset: 'FX', session: 'Asian Session', volume: 9000000, profitPct: -0.60, profit: -5400000 }); // Guarantees lowest avg %
+    db.push({ uuid: 'TXN_Q2_VOLMAX', trader: 'TRD_WHALE', y: '2022', reg: 'LATAM', asset: 'Equities', session: 'London Open', volume: 9950000, profitPct: -0.01, profit: -99500 });
+    
+    // Q3 Target: Huge loss, FX, not London/NY (Asian Session).
+    db.push({ uuid: 'TXN_Q3_CRASH', trader: 'TRD_REKT', y: '2023', reg: 'EMEA', asset: 'FX', session: 'Asian Session', volume: 800000, profitPct: -0.95, profit: -760000 });
+    
+    // Q4 Targets (YoY Calculation for TRD_ALPHA)
+    db.push({ uuid: 'TXN_ALPHA_24', trader: 'TRD_ALPHA', y: '2024', reg: 'LATAM', asset: 'Commodities', session: 'London Open', volume: 500000, profitPct: 0.20, profit: 100000 });
+    db.push({ uuid: 'TXN_ALPHA_25', trader: 'TRD_ALPHA', y: '2025', reg: 'LATAM', asset: 'Commodities', session: 'London Open', volume: 500000, profitPct: 0.25, profit: 125000 });
+    
+    // Q5 Target (Ghost Anomaly)
+    db.push({ uuid: 'TXN_GHOST_ANOMALY', trader: 'TRD_UNKNOWN', y: '2025', reg: 'EMEA', asset: 'Fixed Income', session: 'Asian Session', volume: 5500000, profitPct: 0, profit: 0 });
+
+    function init() {
+        loadMission();
+        
+        const ctx = document.getElementById('mainChart').getContext('2d');
+        chartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: { labels: regions, datasets: [
+                { type: 'bar', label: 'Total Volume', data: [], backgroundColor: '#bae6fd', yAxisID: 'y' },
+                { type: 'line', label: 'Avg Profit %', data: [], borderColor: '#0284c7', backgroundColor: '#0284c7', borderWidth: 2, tension: 0.3, yAxisID: 'y1' }
+            ]},
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    title: { display: true, text: 'ביצועי מאקרו לפי אזורים (Regions)', font: { family: 'Heebo' } }
+                },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: { type: 'linear', display: true, position: 'left', title: {display: true, text: 'Volume'} },
+                    y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false }, title: {display: true, text: 'Profit %'}, ticks: { callback: function(value) { return value + "%"; } } }
+                }
+            }
+        });
+        updateDashboard();
+    }
+
+    function formatCur(val) { return '$' + Math.floor(val).toLocaleString(); }
+    function formatPct(val) { return (val * 100).toFixed(2) + '%'; }
+    
+    function loadMission() {
+        document.getElementById('levelIndicator').innerText = `שלב ${currentLevel} / 5`;
+        document.getElementById('missionText').innerText = missions[currentLevel-1].q;
+        document.getElementById('ansInput').value = '';
+    }
+
+    function updateDashboard() {
+        const y = document.getElementById('fYear').value;
+        const r = document.getElementById('fReg').value;
+        const a = document.getElementById('fAsset').value;
+        const s = document.getElementById('fSession').value;
+        const search = document.getElementById('fSearch').value.toLowerCase();
+
+        let filtered = db.filter(d => {
+            const matchY = (y === 'All' || d.y === y);
+            const matchR = (r === 'All' || d.reg === r);
+            const matchA = (a === 'All' || d.asset === a);
+            const matchS = (s === 'All' || d.session === s);
+            const matchSearch = (search === '' || d.uuid.toLowerCase().includes(search) || d.trader.toLowerCase().includes(search));
+            return matchY && matchR && matchA && matchS && matchSearch;
+        });
+
+        // KPIs
+        const totalVol = filtered.reduce((acc, v) => acc + v.volume, 0);
+        const totalProf = filtered.reduce((acc, v) => acc + v.profit, 0);
+        const avgPct = totalVol > 0 ? (totalProf / totalVol) : 0;
+        
+        document.getElementById('k-count').innerText = filtered.length.toLocaleString();
+        document.getElementById('k-vol').innerText = totalVol.toLocaleString();
+        document.getElementById('k-profit').innerText = formatCur(totalProf);
+        document.getElementById('k-pct').innerText = formatPct(avgPct);
+        document.getElementById('k-profit').className = 'kpi-value ' + (totalProf >= 0 ? 'pos-val' : 'neg-val');
+
+        // Table - Sort by Profit Descending
+        filtered.sort((a,b) => b.profit - a.profit);
+        
+        const tbody = document.getElementById('tableRows');
+        tbody.innerHTML = filtered.map(d => `
+            <tr>
+                <td><strong>${d.uuid}</strong></td>
+                <td>${d.trader}</td>
+                <td style="direction:ltr">${d.y}</td>
+                <td style="direction:ltr">${d.reg}</td>
+                <td style="direction:ltr">${d.asset}</td>
+                <td style="direction:ltr">${d.session}</td>
+                <td>${Math.floor(d.volume).toLocaleString()}</td>
+                <td class="${d.profitPct >= 0 ? 'pos-val' : 'neg-val'}">${formatPct(d.profitPct)}</td>
+                <td class="${d.profit >= 0 ? 'pos-val' : 'neg-val'}">${formatCur(d.profit)}</td>
+            </tr>
+        `).join('');
+
+        // Chart Update (Aggregated Data by Region)
+        const chartVols = regions.map(reg => {
+            return filtered.filter(d => d.reg === reg).reduce((sum, d) => sum + d.volume, 0);
+        });
+        const chartPcts = regions.map(reg => {
+            const regData = filtered.filter(d => d.reg === reg);
+            const v = regData.reduce((sum, d) => sum + d.volume, 0);
+            const p = regData.reduce((sum, d) => sum + d.profit, 0);
+            return v > 0 ? (p / v * 100).toFixed(2) : 0;
+        });
+
+        chartInstance.data.datasets[0].data = chartVols;
+        chartInstance.data.datasets[1].data = chartPcts;
+        chartInstance.update();
+    }
+
+    function checkAnswer() {
+        const input = document.getElementById('ansInput').value.trim().toUpperCase();
+        const expected = missions[currentLevel-1].ans.toUpperCase();
+        
+        if(input === expected) {
+            if(currentLevel < 5) {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                alert("תשובה נכונה! מתקדם לשלב הבא.");
+                currentLevel++;
+                
+                // Reset Filters
+                document.getElementById('fYear').value = 'All';
+                document.getElementById('fReg').value = 'All';
+                document.getElementById('fAsset').value = 'All';
+                document.getElementById('fSession').value = 'All';
+                document.getElementById('fSearch').value = '';
+                
+                loadMission();
+                updateDashboard();
+            } else {
+                confetti({ particleCount: 400, spread: 120, origin: { y: 0.6 }, colors: ['#10b981', '#0284c7', '#ffffff'] });
+                document.getElementById('successOverlay').style.display = 'flex';
+            }
+        } else {
+            alert("תשובה שגויה. נסה שוב - העזר בפילטרים ושורת החיפוש.");
+        }
+    }
+
+    window.onload = init;
+</script>
+</body>
+</html>
