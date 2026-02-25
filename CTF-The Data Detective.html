@@ -74,14 +74,14 @@
 <div id="successOverlay">
     <div class="card" style="padding: 60px; max-width: 500px; border-bottom: 4px solid var(--success);">
         <h1 style="color: var(--success); font-family: 'JetBrains Mono'; margin-top:0;">DATA MASTER CLASSIFIED</h1>
-        <p style="font-size: 1.1rem; color: var(--text-dark);">כל הכבוד! פיצחת את כל 5 השלבים והוכחת יכולות אנליזה גבוהות במיוחד. חריגות הנתונים אותרו ונוטרלו.</p>
+        <p style="font-size: 1.1rem; color: var(--text-dark);">כל הכבוד! פיצחת את כל 10 השלבים והוכחת יכולות אנליזה גבוהות במיוחד. חריגות הנתונים אותרו ונוטרלו.</p>
         <button class="btn-verify" style="margin-top: 20px;" onclick="location.reload()">התחל מחדש</button>
     </div>
 </div>
 
 <div class="sidebar">
     <div>
-        <h2>מסוף אנליסט <span class="level-badge" id="levelIndicator">שלב 1 / 5</span></h2>
+        <h2>מסוף אנליסט <span class="level-badge" id="levelIndicator">שלב 1 / 10</span></h2>
         <p style="font-size: 0.85rem; color: var(--text-light); margin-top:0;">סנן את הנתונים כדי למצוא את התשובות לשאלות החקר.</p>
     </div>
     
@@ -100,7 +100,7 @@
         </div>
         <div class="filter-group">
             <label>סשן מסחר (Session)</label>
-            <select id="fSession" onchange="updateDashboard()"><option value="All" selected>הכל</option><option>London Open</option><option>NY Close</option><option>Asian Session</option></select>
+            <select id="fSession" onchange="updateDashboard()"><option value="All" selected>הכל</option><option>London</option><option>NY</option><option>Asian </option></select>
         </div>
     </div>
 
@@ -143,16 +143,21 @@
     const years = ['2022', '2023', '2024', '2025'];
     const regions = ['EMEA', 'APAC', 'LATAM', 'North America'];
     const assets = ['Equities', 'FX', 'Fixed Income', 'Commodities'];
-    const sessions = ['London Open', 'NY Close', 'Asian Session'];
+    const sessions = ['London', 'NY', 'Asian'];
 
     let currentLevel = 1;
     
     const missions = [
-        { q: 'שלב 1: מצא את ה-UUID של העסקה שבוצעה בסשן "NY Close" על ידי הסוחר שהרוויח את סך הסכום הכולל ($) הגבוה ביותר בשנת 2024 (מבין כל הסוחרים באותה שנה).', ans: 'TXN_Q1_WINNER' },
+        { q: 'שלב 1: מצא את ה-UUID של העסקה שבוצעה בסשן "NY" על ידי הסוחר שהרוויח את סך הסכום הכולל ($) הגבוה ביותר בשנת 2024 (מבין כל הסוחרים באותה שנה).', ans: 'TXN_Q1_WINNER' },
         { q: 'שלב 2: סנן את הנתונים לשנת 2022 ובדוק איזה אזור (Region) הציג את ממוצע הרווח (Profit %) הגרוע ביותר. באותו אזור שיימצא, חפש את עסקת ה-Equities בעלת הנפח (Volume) הגדול ביותר. מה ה-UUID שלה?', ans: 'TXN_Q2_VOLMAX' },
-        { q: 'שלב 3: חפש עסקת מט"ח (FX) בודדת שגרמה להפסד כבד של מעל 700,000$. העסקה התרחשה מחוץ לבורסות לונדון וניו יורק. מה ה-UUID שלה?', ans: 'TXN_Q3_CRASH' },
-        { q: 'שלב 4: הסוחר "TRD_ALPHA" פעל ב-2024 וב-2025. מהו שיעור הצמיחה ברווח שלו (YoY Profit % Growth) מ-2024 ל-2025? (הזן מספר בלבד, למשל 15)', ans: '25' },
-        { q: 'שלב 5 (חריגה): מצא את עסקת הרפאים! ישנה עסקה אחת בכל המערכת שבה ה-Volume גדול מ-1,000,000 אך אחוז הרווח (Profit %) הוא בדיוק 0%. מה ה-UUID שלה?', ans: 'TXN_GHOST_ANOMALY' }
+        { q: 'שלב 3: מצא את ה-UUID של העסקה שבוצעה בסשן "Asian" על ידי הסוחר שהרוויח את סך ה-Profit ($) הגבוה ביותר בשנת 2025 (מבין כל הסוחרים באותה שנה).', ans: 'TXN_Q3_ASIAN25' },
+        { q: 'שלב 4: מצא את ה-UUID של העסקה שבוצעה באזור "EMEA" על ידי הסוחר שהרוויח את סך ה-Profit (%) הגבוה ביותר בשנת 2022 (מבין כל הסוחרים באותה שנה).', ans: 'TXN_Q4_EMEA22' },
+        { q: 'שלב 5 (חריגה): מצא את עסקת הרפאים! ישנה עסקה אחת בכל המערכת שבה ה-Volume גדול מ-1,000,000 אך אחוז הרווח (Profit %) הוא בדיוק 0%. מה ה-UUID שלה?', ans: 'TXN_GHOST_ANOMALY' },
+        { q: 'שלב 6: מהו הסכום הכולל של VOLUME של הסוחר "TRD_OMEGA" במשך השנים 2022-2024? (הזן מספר בלבד, ללא פסיקים)', ans: '6000' },
+        { q: 'שלב 7: מהו הסכום הכולל של PROFIT ($) של הסוחר "TRD_OMEGA" במשך השנים 2022-2024? (הזן מספר בלבד, ללא פסיקים)', ans: '600' },
+        { q: 'שלב 8: על פי הנתונים של שלבים 6 ו-7, חשב מה ה-PROFIT % של הסוחר "TRD_OMEGA" לאורך כל התקופה? (הזן אחוז כולל סימן %, לדוגמה 10%)', ans: '10%' },
+        { q: 'שלב 9: מהו הסכום הכולל של VOLUME עבור סשן מסחר "Asian" וסוג נכס "Commodities" בשנת 2024? (הזן מספר בלבד, ללא פסיקים)', ans: '777777' },
+        { q: 'שלב 10: באיזו שנה אזור "North America" ביצע את ה-VOLUME הכולל הגבוה ביותר? (הזן את השנה בלבד, למשל 2022)', ans: '2023' }
     ];
 
     // Generate Base Data
@@ -160,6 +165,9 @@
         regions.forEach(r => {
             assets.forEach(a => {
                 sessions.forEach(s => {
+                    // Exclude this specific combo from random generation so Q9 has a fixed, calculable answer
+                    if(y === '2024' && a === 'Commodities' && s === 'Asian') return;
+
                     let count = Math.floor(Math.random() * 3) + 3;
                     for(let i=0; i<count; i++) {
                         let volume = Math.floor(Math.random() * 90000) + 10000;
@@ -178,24 +186,36 @@
         });
     });
 
-    // Inject Target Answers guarantees
-    // Q1 Target: Make TRD_PRO the top earner in 2024, and inject the specific NY Close trade.
-    db.push({ uuid: 'TXN_DUMMY_PRO1', trader: 'TRD_PRO', y: '2024', reg: 'APAC', asset: 'Equities', session: 'London Open', volume: 5000000, profitPct: 0.20, profit: 1000000 });
-    db.push({ uuid: 'TXN_Q1_WINNER', trader: 'TRD_PRO', y: '2024', reg: 'North America', asset: 'FX', session: 'NY Close', volume: 2000000, profitPct: 0.15, profit: 300000 });
+    // Injections to guarantee deterministic answers
+
+    // Q1 Target: TRD_PRO top earner 2024
+    db.push({ uuid: 'TXN_DUMMY_PRO1', trader: 'TRD_PRO', y: '2024', reg: 'APAC', asset: 'Equities', session: 'London', volume: 5000000, profitPct: 0.20, profit: 1000000 });
+    db.push({ uuid: 'TXN_Q1_WINNER', trader: 'TRD_PRO', y: '2024', reg: 'North America', asset: 'FX', session: 'NY', volume: 2000000, profitPct: 0.15, profit: 300000 });
     
-    // Q2 Target: Make LATAM the worst region in 2022, and inject the high volume Equities trade.
-    db.push({ uuid: 'TXN_DUMMY_LOSS', trader: 'TRD_LOSER', y: '2022', reg: 'LATAM', asset: 'FX', session: 'Asian Session', volume: 9000000, profitPct: -0.60, profit: -5400000 }); // Guarantees lowest avg %
-    db.push({ uuid: 'TXN_Q2_VOLMAX', trader: 'TRD_WHALE', y: '2022', reg: 'LATAM', asset: 'Equities', session: 'London Open', volume: 9950000, profitPct: -0.01, profit: -99500 });
+    // Q2 Target: LATAM worst region 2022
+    db.push({ uuid: 'TXN_DUMMY_LOSS', trader: 'TRD_LOSER', y: '2022', reg: 'LATAM', asset: 'FX', session: 'Asian', volume: 9000000, profitPct: -0.60, profit: -5400000 }); 
+    db.push({ uuid: 'TXN_Q2_VOLMAX', trader: 'TRD_WHALE', y: '2022', reg: 'LATAM', asset: 'Equities', session: 'London', volume: 9950000, profitPct: -0.01, profit: -99500 });
     
-    // Q3 Target: Huge loss, FX, not London/NY (Asian Session).
-    db.push({ uuid: 'TXN_Q3_CRASH', trader: 'TRD_REKT', y: '2023', reg: 'EMEA', asset: 'FX', session: 'Asian Session', volume: 800000, profitPct: -0.95, profit: -760000 });
-    
-    // Q4 Targets (YoY Calculation for TRD_ALPHA)
-    db.push({ uuid: 'TXN_ALPHA_24', trader: 'TRD_ALPHA', y: '2024', reg: 'LATAM', asset: 'Commodities', session: 'London Open', volume: 500000, profitPct: 0.20, profit: 100000 });
-    db.push({ uuid: 'TXN_ALPHA_25', trader: 'TRD_ALPHA', y: '2025', reg: 'LATAM', asset: 'Commodities', session: 'London Open', volume: 500000, profitPct: 0.25, profit: 125000 });
-    
+    // Q3 Target: TRD_KING top earner in 2025
+    db.push({ uuid: 'TXN_DUMMY_KING1', trader: 'TRD_KING', y: '2025', reg: 'North America', asset: 'Fixed Income', session: 'London', volume: 8000000, profitPct: 0.25, profit: 2000000 });
+    db.push({ uuid: 'TXN_Q3_ASIAN25', trader: 'TRD_KING', y: '2025', reg: 'EMEA', asset: 'FX', session: 'Asian', volume: 3000000, profitPct: 0.10, profit: 300000 });
+
+    // Q4 Target: TRD_PERCENT top earner by Profit % in EMEA 2022
+    db.push({ uuid: 'TXN_Q4_EMEA22', trader: 'TRD_PERCENT', y: '2022', reg: 'EMEA', asset: 'Commodities', session: 'NY', volume: 100000, profitPct: 0.95, profit: 95000 });
+
     // Q5 Target (Ghost Anomaly)
-    db.push({ uuid: 'TXN_GHOST_ANOMALY', trader: 'TRD_UNKNOWN', y: '2025', reg: 'EMEA', asset: 'Fixed Income', session: 'Asian Session', volume: 5500000, profitPct: 0, profit: 0 });
+    db.push({ uuid: 'TXN_GHOST_ANOMALY', trader: 'TRD_UNKNOWN', y: '2025', reg: 'EMEA', asset: 'Fixed Income', session: 'Asian', volume: 5500000, profitPct: 0, profit: 0 });
+
+    // Q6, Q7, Q8 Targets: TRD_OMEGA over 2022-2024. Total Vol=6000, Total Profit=600. (Profit % = 10%)
+    db.push({ uuid: 'TXN_OMG_22', trader: 'TRD_OMEGA', y: '2022', reg: 'APAC', asset: 'Equities', session: 'NY', volume: 1000, profitPct: 0.10, profit: 100 });
+    db.push({ uuid: 'TXN_OMG_23', trader: 'TRD_OMEGA', y: '2023', reg: 'APAC', asset: 'Equities', session: 'NY', volume: 2000, profitPct: 0.10, profit: 200 });
+    db.push({ uuid: 'TXN_OMG_24', trader: 'TRD_OMEGA', y: '2024', reg: 'APAC', asset: 'Equities', session: 'NY', volume: 3000, profitPct: 0.10, profit: 300 });
+
+    // Q9 Target: 2024, Asian, Commodities -> Exactly 777777 volume.
+    db.push({ uuid: 'TXN_Q9_COMM', trader: 'TRD_COMM', y: '2024', reg: 'APAC', asset: 'Commodities', session: 'Asian', volume: 777777, profitPct: 0.05, profit: 38888.85 });
+
+    // Q10 Target: North America highest volume year = 2023.
+    db.push({ uuid: 'TXN_NA_BOOM', trader: 'TRD_NA_WHALE', y: '2023', reg: 'North America', asset: 'Equities', session: 'NY', volume: 50000000, profitPct: 0.02, profit: 1000000 });
 
     function init() {
         loadMission();
@@ -227,7 +247,7 @@
     function formatPct(val) { return (val * 100).toFixed(2) + '%'; }
     
     function loadMission() {
-        document.getElementById('levelIndicator').innerText = `שלב ${currentLevel} / 5`;
+        document.getElementById('levelIndicator').innerText = `שלב ${currentLevel} / 10`;
         document.getElementById('missionText').innerText = missions[currentLevel-1].q;
         document.getElementById('ansInput').value = '';
     }
@@ -298,7 +318,7 @@
         const expected = missions[currentLevel-1].ans.toUpperCase();
         
         if(input === expected) {
-            if(currentLevel < 5) {
+            if(currentLevel < 10) {
                 confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
                 alert("תשובה נכונה! מתקדם לשלב הבא.");
                 currentLevel++;
@@ -324,5 +344,4 @@
     window.onload = init;
 </script>
 </body>
-
 </html>
