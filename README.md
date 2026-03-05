@@ -20,6 +20,8 @@ To successfully crack the missions, you will need a combination of:
 
 Link - https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html
 
+Link - [Click here to play](https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html)
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # 🕵️‍♂️ משחק CTF לאנליסטים
