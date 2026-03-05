@@ -18,9 +18,7 @@ To successfully crack the missions, you will need a combination of:
 * **Chart Analysis:** Observing and learning from the visual graph to identify trends.
 * **Raw Data Examination:** Inspecting the raw data table to find specific UUIDs, detect anomalies, and calculate metrics.
 
-Link - https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html
-
-Link - [Click here to play](https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html)
+Link - [Click here to open](https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -45,3 +43,4 @@ Link - [Click here to play](https://biluor.github.io/CTF-The-Data-Detective/CTF-
 
 קישור - https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html
 
+קישור - [לחץ כאן לפתיחה](https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html)
