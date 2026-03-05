@@ -16,6 +16,8 @@ To successfully crack the missions, you will need a combination of:
 * **Chart Analysis:** Observing and learning from the visual graph to identify trends.
 * **Raw Data Examination:** Inspecting the raw data table to find specific UUIDs, detect anomalies, and calculate metrics.
 
+Link - https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # 🕵️‍♂️ משחק CTF לאנליסטים
@@ -34,3 +36,5 @@ To successfully crack the missions, you will need a combination of:
 * **סינון:** שימוש במסננים השונים כדי לבודד את קבוצות הנתונים הרלוונטיות.
 * **הסתכלות ולמידה מהגרף:** ניתוח המגמות המוצגות בגרף כדי להבין את התמונה הגדולה ולזהות נקודות מפתח.
 * **בחינת הנתונים הגולמיים:** ירידה לפרטים בטבלת הנתונים כדי למצוא מזהים ספציפיים, לאתר חריגות ולבצע חישובים מדויקים.
+
+קישור - https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html
