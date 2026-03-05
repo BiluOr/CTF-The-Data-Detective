@@ -4,6 +4,7 @@
 **Data Sentinel** is a browser-based Capture The Flag (CTF) game specifically designed for Data Analysts. 
 Players step into the shoes of a data detective operating a mock financial dashboard. 
 The goal is to solve 10 progressive data-driven missions by identifying specific transaction UUIDs, anomalies, and performance metrics.
+**Educational Purpose:** This game is built as an educational tool. It is designed at a very basic level with the primary goal of making the fundamental process of data investigation and exploration accessible to everyone.
 
 ## 🚀 Features
 * **Interactive Dashboard:** Built-in KPIs, a dynamic data table, and interactive charts.
@@ -24,7 +25,8 @@ Link - https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detectiv
 
 ## 📌 תקציר
 משחק "תפוס את הדגל" מבוסס דפדפן, המיועד במיוחד לאנליסטים של נתונים, השחקנים נכנסים לנעליו של בלש נתונים המפעיל דשבורד פיננסי. 
-המטרה היא לפתור 10 משימות חקר נתונים ברמת קושי עולה, על מנת למצוא מזהי עסקאות, חריגות במערכת ומדדי ביצוע.
+המטרה היא לפתור 10 משימות חקר נתונים על מנת למצוא מזהי עסקאות, חריגות במערכת ומדדי ביצוע.
+**מטרה לימודית:** המשחק בנוי כמשחק לימודי. הוא ברמה מאוד בסיסית ובא במטרה להנגיש את התהליך הבסיסי של חקירת נתונים לכל אחד, בצורה חווייתית.
 
 ## 🚀 פיצ'רים מרכזיים
 * **דשבורד אינטראקטיבי:** כולל כרטיסיות מדדים, טבלת נתונים דינמית וגרפים מתעדכנים.
