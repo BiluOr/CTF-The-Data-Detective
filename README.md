@@ -1,8 +1,8 @@
 # 🕵️‍♂️ Data Sentinel - Analyst CTF
 
 ## 📌 Overview
-**Data Sentinel** is a browser-based Capture The Flag (CTF) game specifically designed for Data Analysts. 
-Players step into the shoes of a data detective operating a mock financial dashboard. 
+**Data Sentinel** is a browser-based Capture The Flag (CTF) game specifically designed for Data Analysts. 
+Players step into the shoes of a data detective operating a mock financial dashboard. 
 The goal is to solve 10 progressive data-driven missions by identifying specific transaction UUIDs, anomalies, and performance metrics.
 
 **Educational Purpose:** This game is built as an educational tool. It is designed at a very basic level with the primary goal of making the fundamental process of data investigation and exploration accessible to everyone.
@@ -20,27 +20,35 @@ To successfully crack the missions, you will need a combination of:
 
 Link - [Click here to open](https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html)
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-# 🕵️‍♂️ משחק CTF לאנליסטים
+<h1 align="right" dir="rtl">🕵️‍♂️ משחק CTF לאנליסטים</h1>
 
-## 📌 תקציר
-משחק "תפוס את הדגל" מבוסס דפדפן, המיועד במיוחד לאנליסטים של נתונים, השחקנים נכנסים לנעליו של בלש נתונים המפעיל דשבורד פיננסי. 
+<h2 align="right" dir="rtl">📌 תקציר</h2>
+<p align="right" dir="rtl">
+משחק "תפוס את הדגל" מבוסס דפדפן, המיועד במיוחד לאנליסטים של נתונים, השחקנים נכנסים לנעליו של בלש נתונים המפעיל דשבורד פיננסי.<br>
 המטרה היא לפתור 10 משימות חקר נתונים על מנת למצוא מזהי עסקאות, חריגות במערכת ומדדי ביצוע.
+</p>
 
-**מטרה לימודית:** המשחק בנוי כמשחק לימודי. הוא ברמה מאוד בסיסית ובא במטרה להנגיש את התהליך הבסיסי של חקירת נתונים לכל אחד, בצורה חווייתית.
+<p align="right" dir="rtl">
+<strong>מטרה לימודית:</strong> המשחק בנוי כמשחק לימודי. הוא ברמה מאוד בסיסית ובא במטרה להנגיש את התהליך הבסיסי של חקירת נתונים לכל אחד, בצורה חווייתית.
+</p>
 
-## 🚀 פיצ'רים מרכזיים
-* **דשבורד אינטראקטיבי:** כולל כרטיסיות מדדים, טבלת נתונים דינמית וגרפים מתעדכנים.
-* **10 שלבים מאתגרים:** המשימות נעות מבידוד נתונים בסיסי ועד לחישובי אגרגציות מורכבים וחיפוש חריגות.
-* **יצירת נתונים דינמית:** המערכת מייצרת דאטה-סט רנדומלי בכל טעינה, אך מזריקה לתוכו עסקאות מטרה ספציפיות כדי להבטיח את התשובות למשימות.
+<h2 align="right" dir="rtl">🚀 פיצ'רים מרכזיים</h2>
+<ul align="right" dir="rtl">
+  <li><strong>דשבורד אינטראקטיבי:</strong> כולל כרטיסיות מדדים, טבלת נתונים דינמית וגרפים מתעדכנים.</li>
+  <li><strong>10 שלבים מאתגרים:</strong> המשימות נעות מבידוד נתונים בסיסי ועד לחישובי אגרגציות מורכבים וחיפוש חריגות.</li>
+  <li><strong>יצירת נתונים דינמית:</strong> המערכת מייצרת דאטה-סט רנדומלי בכל טעינה, אך מזריקה לתוכו עסקאות מטרה ספציפיות כדי להבטיח את התשובות למשימות.</li>
+</ul>
 
-## 🧠 מיומנויות נדרשות לפתרון
-כדי לפתור את החידות בהצלחה נדרש שילוב של:
-* **סינון:** שימוש במסננים השונים כדי לבודד את קבוצות הנתונים הרלוונטיות.
-* **הסתכלות ולמידה מהגרף:** ניתוח המגמות המוצגות בגרף כדי להבין את התמונה הגדולה ולזהות נקודות מפתח.
-* **בחינת הנתונים הגולמיים:** ירידה לפרטים בטבלת הנתונים כדי למצוא מזהים ספציפיים, לאתר חריגות ולבצע חישובים מדויקים.
+<h2 align="right" dir="rtl">🧠 מיומנויות נדרשות לפתרון</h2>
+<p align="right" dir="rtl">כדי לפתור את החידות בהצלחה נדרש שילוב של:</p>
+<ul align="right" dir="rtl">
+  <li><strong>סינון:</strong> שימוש במסננים השונים כדי לבודד את קבוצות הנתונים הרלוונטיות.</li>
+  <li><strong>הסתכלות ולמידה מהגרף:</strong> ניתוח המגמות המוצגות בגרף כדי להבין את התמונה הגדולה ולזהות נקודות מפתח.</li>
+  <li><strong>בחינת הנתונים הגולמיים:</strong> ירידה לפרטים בטבלת הנתונים כדי למצוא מזהים ספציפיים, לאתר חריגות ולבצע חישובים מדויקים.</li>
+</ul>
 
-קישור - https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html
-
-קישור - [לחץ כאן לפתיחה](https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html)
+<p align="right" dir="rtl">
+קישור - <a href="https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html">לחץ כאן לפתיחה</a>
+</p>
