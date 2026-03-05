@@ -1,3 +1,5 @@
+<div dir="ltr" align="left">
+
 # 🕵️‍♂️ Data Sentinel - Analyst CTF
 
 ## 📌 Overview
@@ -18,11 +20,14 @@ To successfully crack the missions, you will need a combination of:
 * **Chart Analysis:** Observing and learning from the visual graph to identify trends.
 * **Raw Data Examination:** Inspecting the raw data table to find specific UUIDs, detect anomalies, and calculate metrics.
 
-Link - <a href="https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html" </a>
+**Link:** [Click here to play the CTF](https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html)
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</div>
 
-<div align="right" dir="rtl">
+---
+
+<div dir="rtl" align="right">
+
 # 🕵️‍♂️ משחק CTF לאנליסטים
 
 ## 📌 תקציר
@@ -42,6 +47,6 @@ Link - <a href="https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%2
 * **הסתכלות ולמידה מהגרף:** ניתוח המגמות המוצגות בגרף כדי להבין את התמונה הגדולה ולזהות נקודות מפתח.
 * **בחינת הנתונים הגולמיים:** ירידה לפרטים בטבלת הנתונים כדי למצוא מזהים ספציפיים, לאתר חריגות ולבצע חישובים מדויקים.
 
-קישור - <a href="https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html" </a>
+**קישור:** [לחצו כאן למעבר למשחק](https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html)
 
 </div>
