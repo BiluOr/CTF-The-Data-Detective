@@ -22,7 +22,6 @@ Link - https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detectiv
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-<div align="right" dir="rtl">
 # 🕵️‍♂️ משחק CTF לאנליסטים
 
 ## 📌 תקציר
@@ -44,4 +43,3 @@ Link - https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detectiv
 
 קישור - https://biluor.github.io/CTF-The-Data-Detective/CTF-The%20Data%20Detective.html
 
-</div>
