@@ -1,7 +1,7 @@
-# 🕵️‍♂️ Data Sentinel - Analyst CTF
+# 🕵️‍♂️ Data Analyst CTF
 
 ## 📌 Overview
-**Data Sentinel** is a browser-based Capture The Flag (CTF) game specifically designed for Data Analysts. 
+**The Challenge** a browser-based Capture The Flag (CTF) game specifically designed for Data Analysts. 
 Players step into the shoes of a data detective operating a mock financial dashboard. 
 The goal is to solve 10 progressive data-driven missions by identifying specific transaction UUIDs, anomalies, and performance metrics.
 
