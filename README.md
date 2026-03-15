@@ -1,7 +1,7 @@
-# 🕵️‍♂️ Data Analyst CTF
+# 🕵️‍♂️ Dashboard Detective CTF
 
 ## 📌 Overview
-**The Challenge** a browser-based Capture The Flag (CTF) game specifically designed for Data Analysts. 
+**The Challenge** a browser-based Capture The Flag (CTF) game specifically designed for Analysts. 
 Players step into the shoes of a data detective operating a mock financial dashboard. 
 The goal is to solve 10 progressive data-driven missions by identifying specific transaction UUIDs, anomalies, and performance metrics.
 
@@ -26,7 +26,7 @@ Link - [Click here to open](https://biluor.github.io/CTF-The-Data-Detective/CTF-
 
 <h2 align="right" dir="rtl">📌 תקציר</h2>
 <p align="right" dir="rtl">
-משחק "תפוס את הדגל" מבוסס דפדפן, המיועד במיוחד לאנליסטים של נתונים, השחקנים נכנסים לנעליו של בלש נתונים המפעיל דשבורד פיננסי.<br>
+משחק "תפוס את הדגל" מבוסס דפדפן, המיועד במיוחד לאנליסטים, השחקנים נכנסים לנעליו של בלש נתונים המפעיל דשבורד פיננסי.<br>
 המטרה היא לפתור 10 משימות חקר נתונים על מנת למצוא מזהי עסקאות, חריגות במערכת ומדדי ביצוע.
 </p>
 
